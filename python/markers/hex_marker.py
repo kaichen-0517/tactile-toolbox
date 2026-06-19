@@ -3,12 +3,6 @@ from scipy.spatial import Delaunay
 import cv2
 import os
 
-current_script = os.path.abspath(__file__)
-current_dir = os.path.dirname(current_script)
-
-print(current_dir)
-
-
 def generate_hex_lattice(n_rings: int, ring_radius: float = 60.0):
     points = []
     ring_ids = []
@@ -134,8 +128,14 @@ def visualise(
 
 
 if __name__ == "__main__":
-    N_RINGS = 9  # Include centre
+    N_RINGS = 7  # Include centre
     RING_RADIUS = 70.0  # independent param
+    
+    dir = './outputs/markers'
+    edge_index_dir = os.path.join(dir, "edge_index")
+    keypoints_dir = os.path.join(dir, "keypoints")
+    os.makedirs(edge_index_dir, exist_ok=True)
+    os.makedirs(keypoints_dir, exist_ok=True)
 
     points, ring_ids = generate_hex_lattice(N_RINGS, RING_RADIUS)
 
@@ -145,5 +145,5 @@ if __name__ == "__main__":
 
     visualise(points, ring_ids, tri, edge_index, N_RINGS, img_size=800)
 
-    np.save(os.path.join(current_dir, f"edge_index_hex_n{N_RINGS}.npy"), edge_index)
-    np.save(os.path.join(current_dir, f"keypoints_hex_n{N_RINGS}.npy"), points)
+    np.save(os.path.join(edge_index_dir, f"edge_index_hex_n{N_RINGS}.npy"), edge_index)
+    np.save(os.path.join(keypoints_dir, f"keypoints_hex_n{N_RINGS}.npy"), points)

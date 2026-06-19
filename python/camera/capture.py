@@ -1,13 +1,13 @@
 import cv2
 import os
 
-FOLDER = "./.captured_images/calibration"
+FOLDER = "./.captured_images/calibration-1920-1080-2"
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1600)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1200)
-cap.set(cv2.CAP_PROP_EXPOSURE, -7)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+cap.set(cv2.CAP_PROP_EXPOSURE, -5)
 
 actual_w = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 actual_h = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -29,15 +29,12 @@ while True:
 
     h, w = frame.shape[:2]
 
-    scale = min(1920 / w, 1080 / h, 1.0)
+    scale = min(800 / w, 600 / h, 1.0)
 
-    show = cv2.resize(
-        frame,
-        (int(w * scale), int(h * scale))
-    )
+    show = cv2.resize(frame, (int(w * scale), int(h * scale)))
 
     cv2.imshow("img", show)
-    
+
     key = cv2.waitKey(1) & 0xFF
 
     if key == ord("q") or key == 27:

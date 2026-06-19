@@ -10,10 +10,11 @@ import json
 ARUCO_DICT = cv2.aruco.DICT_ARUCO_MIP_36H12
 SQUARES_VERTICALLY = 7
 SQUARES_HORIZONTALLY = 5
-SQUARE_LENGTH = 0.03
-MARKER_LENGTH = 0.015
+SQUARE_LENGTH = 0.0123
+MARKER_LENGTH = SQUARE_LENGTH / 2
+RESOLUTION = "1920-1080-2"
 # ...
-PATH_TO_YOUR_IMAGES = "./.captured_images/calibration"
+PATH_TO_YOUR_IMAGES = f"./.captured_images/calibration-{RESOLUTION}"
 # ------------------------------
 
 
@@ -50,9 +51,9 @@ def calibrate_and_save_parameters():
 
     SENSOR = "ELP-120HZ"
     LENS = "Unknown"
-    OUTPUT_JSON = f"./outputs/calibration.json"
+    OUTPUT_JSON = f"./outputs/undistortion/calibration-{RESOLUTION}.json"
 
-    data = {"sensor": SENSOR, "lens": LENS, "mtx": camera_matrix.tolist(), "dist": dist_coeffs.tolist()}
+    data = {"sensor": SENSOR, "resolutioin": RESOLUTION, "lens": LENS, "mtx": camera_matrix.tolist(), "dist": dist_coeffs.tolist()}
     with open(OUTPUT_JSON, "w") as json_file:
         json.dump(data, json_file, indent=4)
 

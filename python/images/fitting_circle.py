@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-PATH = "./temp/scripts/threshold/image_2.png"
+PATH = "./.captured_images/test_images/image_3.png"
 
 points = []
 WINDOW_NAME = "6 Points Circle Fitting"
